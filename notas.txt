@@ -1,0 +1,265 @@
+CARACTERÍSTICAS
+
+- Utilerías. Flexibles, adaptables, portables y modulares, y pueden ser usadas junto con filtros y redireccionamientos para hacerlos más poderosos.
+
+- Multiusuario. 1 a 100 usuarios, ejecutando cada uno de ellos un conjunto diferente de programas, esto dependiendo de los recursos.
+
+- I/O. Los dispositivos son considerados como archivos por UNIX. Cuando se da una instrucción a UNIX, se le puede indicar que envíe el resultado a cualquiera de los diversos dispositivos o archivos.  En el UNIX, la entrada y la salida son INDEPENDIENTES DEL DISPOSITIVO, pueden redireccionarse hacia o desde cualquier dispositivo.
+
+- Comunicación. Un pipeline redirige la salida de un programa para que se convierta en entrada de otro.
+
+- Multitasking.
+
+- Kernel y Shell. 
+
+
+
+- Proceso. Programa ejecutado identificado por un único id, llamado PID.
+
+- Archivo. Conjunto o una colección de datos identificada por un nombre.
+
+
+
+* Pipeline. Secuencia de procesos. La salida de uno se convierte en la entrada del siguiente.
+
+
+
+
+
+
+
+
+
+
+USUARIOS
+
+/etc/passwd
+
+- Username: It is used when user logs in. It should be between 1 and 32 characters in length.
+
+- Password: An x character indicates that encrypted password is stored in /etc/shadow file.
+
+- User ID (UID): Each user must be assigned a user ID (UID). UID 0 (zero) is reserved for root and UIDs 1-99 are reserved for other predefined accounts. Further UID 100-999 are reserved by system for administrative and system accounts/groups.
+
+- Group ID (GID): The primary group ID (stored in /etc/group file)
+
+- User ID Info: The comment field. It allow you to add extra information about the users such as user's full name, phone number etc. This field use by finger command.
+
+- Home directory: The absolute path to the directory the user will be in when they log in. If this directory does not exists then users directory becomes /
+
+- Command/shell: The absolute path of a command or shell (/bin/bash). Typically, this is a shell. Please note that it does not have to be a shell.
+
+
+
+/etc/shadow
+
+- User name : It is your login name
+
+- Password: It your encrypted password. The password should be minimum 6-8 characters long including special characters/digits
+
+- Last password change (lastchanged): Days since Jan 1, 1970 that password was last changed
+
+- Minimum: The minimum number of days required between password changes i.e. the number of days left before the user is allowed to change his/her password
+
+- Maximum: The maximum number of days the password is valid (after that user is forced to change his/her password)
+
+- Warn : The number of days before password is to expire that user is warned that his/her password must be changed
+
+- Inactive : The number of days after password expires that account is disabled
+
+- Expire : days since Jan 1, 1970 that account is disabled i.e. an absolute date specifying when the login may no longer be used
+
+
+
+
+/etc/group
+
+-  Nombre del grupo. El nombre del grupo.
+
+-  Contraseña del grupo. Ésta es opcional, pero si se fija permite que usuarios que no son parte del grupo se unan al mismo.
+
+-  ID del grupo (GID). El equivalente numérico del nombre del grupo.
+
+-  Miembros del grupo. Todos los nombres de usuario que pertenecen al grupo, en forma de lista separada por comas.
+
+useradd
+
+    -g: Grupo principal que queremos tenga el usuario (debe existir previamente)
+    -d: Carpeta home del usuario. Suele ser /home/nombre-usuario
+    -m: Crear carpeta home si es que no existe.
+    -s: Intérprete de comandos (shell) del usuario. Suele ser /bin/bash
+
+Tipos de archivos
+
+- archivos normales
+d directorios
+l links
+s socket
+p pipe
+b block
+
+
+
+
+
+
+
+
+
+
+ESTRUCTURA DE ARCHIVOS
+
+/bin - Para todos los usuarios. cp mv rm cat ls
+
+/boot - Archivos de carga - Se carga un FS temporal en memoria, como parte del inicio de UNIX, para preparar el FS final.
+
+/dev - Discos duros, impresoras, terminales.
+
+/etc - Previamente almacenaba binarios, librerías o dispositivos, después archivos que no caían en ninguna categoría.
+
+/home
+
+/lib - Para /bin y /sbin.
+
+/mnt - (o /media) Temporales.
+
+/opt
+
+/root
+
+/sbin - fsck init.
+
+/tmp
+
+/usr - Contiene la mayoría de utilidades y aplicaciones multi-usuario. Archivos include, demonios.
+
+/var - cache, log, mail
+
+
+
+
+
+
+
+
+
+KERNEL Y SHELL
+
+-  Cuando un sistema UNIX inicia, ejecuta shell scripts en /etc.rd - Un entendimiento a detalle es importante para analizar el comportamiento de un sistema y hasta modificarlo.
+
+- La sintaxis es tan simple como invocar y secuenciar comandos y utilidades en la terminal, con muy pocas “reglas”.
+
+-  Filosofía UNIX, dividir las tareas complejas en sub-tareas más simples.
+
+
+
+
+
+
+
+
+TIPOS DE SHELL
+
+- sh. El primer shell desarrollado e incluído en UNIX. (Stephen Bourne, data scientist, UK, Bell labs & UNIX, adb debugger).
+
+- csh. Basado en C, incluía algunas características extra, como el historial de comandos.
+
+- ksh. Creado para ser compatible con Bourne Shell, pero incluyendo características de C Shell.
+
+- bash. Similar a ksh pero con otras características como comando de ayuda interno. Es el shell más popular actualmente, y es el default de la mayoría de sistemas UNIX y distribuciones Linux.
+
+- tcsh. Versión extendida del C Shell, con las características de Korn Shell y Bourne again Shell.
+
+- zsh. Relativamente moderno, extiende las capacidades del bash.
+
+
+
+
+
+
+
+
+
+SHELL BÁSICO
+
+EL INICIO
+
+chmod 555 scriptname (gives everyone read/execute permission) 
+
+chmod +rx scriptname (gives everyone read/execute permission)
+
+chmod u+rx scriptname (gives only the script owner read/execute permission)
+
+
+
+
+
+
+
+IF THEN ELSE
+
+- test. Comando que verifica tipos de archivo y compara cadenas.
+
+- [ ]. Sinónimo de test. Devuelve un exit status como resultado de la comparación (0 - verdadero, 1 - falso).
+
+- [[ ]]. test extendido. Compara de un modo más familiar a otros lenguajes. [[ $a -lt $b ]] es visto por bash como un solo elemento que devuelve un exit status.
+
+
+
+
+
+-e El archivo existe.
+
+-f El archivo existe y es un archivo regular.
+
+-s El archivo existe y tiene un tamaño mayor a cero.
+
+-d El archivo existe y es un directorio.
+
+-h El archivo existe y es una liga simbólica.
+
+-r El archivo existe y tiene permiso de lectura.
+
+-w El archivo existe y tiene permiso de escritura.
+
+-x El archivo existe y tiene permiso de ejecución.
+
+-O El archivo existe y el usuario que ejecuta el test es el propietario.
+
+-G El archivo existe y el pertenece al mismo grupo que el usuario que ejecuta el test.
+
+-nt El archivo existe y es más reciente que.
+
+-ot El archivo existe y es más antiguo que.
+
+! Negación.
+
+
+
+-eq Igual a.
+
+-ne Diferente a.
+
+—gt Mayor que.
+
+-ge Mayor o igual que.
+
+-lt Menor que.
+
+-le Menor o igual que.
+
+
+
+- = Igual a.
+
+- == Igual a.
+
+- != Diferente a.
+
+- < Menor que (en valor ASCII).
+
+- > Mayor que (en valor ASCII).
+
+-z Cadena nula o sin longitud.
+
+-n Cadena no nula.
